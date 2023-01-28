@@ -1,0 +1,58 @@
+/* Entries & searchBar */
+
+.entries-searchBar {
+  display: flex;
+  margin: 20px 0;
+}
+
+select {
+  width: 40px;
+}
+
+select option:nth-child(even) {
+  background-color: #f3f3f3;
+}
+
+.paragraphEntries {
+  display: inline;
+  margin-left: 5px;
+  margin-right: 500px;
+}
+
+/* Table */
+
+.table {
+  box-shadow: 3px 6px 3px #ccc;
+  border-collapse: collapse;
+  border: 1px solid #93ad18;
+}
+
+.headColumns {
+  background-color: #93ad18;
+  color: white;
+}
+
+th,
+td {
+  text-align: center;
+  padding: 5px;
+}
+
+tbody tr:nth-child(even) {
+  background-color: #f3f3f3;
+}
+
+/* PAGINATION*/
+
+.button {
+  border: none;
+  background-color: white;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.page-number {
+  background-color: #93ad18;
+  padding: 5px 10px;
+  font-weight: bold;
+}
