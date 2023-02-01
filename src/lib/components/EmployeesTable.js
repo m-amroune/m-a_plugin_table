@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import Table from "./Table";
 import style from "./style.module.css";
-import Pagination from "./Pagination";
 
 const EmployeesTable = ({ headColumns, rows }) => {
   const [searchValue, setSearchValue] = useState("");
@@ -55,9 +54,6 @@ const EmployeesTable = ({ headColumns, rows }) => {
           Showing {} to {} entries of {rows.length}
           entries
         </p>
-      </div>
-      <div>
-        <Pagination rows={search(rows)} />
       </div>
     </div>
   );
