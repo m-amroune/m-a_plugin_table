@@ -1,9 +1,14 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import style from "./style.module.css";
+import { BiUpArrow, BiDownArrow } from "react-icons/bi";
 
 const Table = ({ headColumns, rows, rowsPerPage }) => {
-  //   const [currentListEmployees, setCurrentListEmployees] = useState([...rows]);
+  const [currentListEmployees, setCurrentListEmployees] = useState([...rows]);
   const [page, setPage] = useState(0);
+
+  useEffect(() => {
+    setCurrentListEmployees(rows);
+  }, [rows]);
 
   const onPrevious = () => {
     setPage(page - 1 > -1 ? page - 1 : page);
@@ -18,7 +23,10 @@ const Table = ({ headColumns, rows, rowsPerPage }) => {
         <thead className={style.headColumns}>
           <tr>
             {headColumns.map(({ title }, index) => (
-              <th key={`${index}-${title}`}> {title} </th>
+              <th key={`${index}-${title}`}>
+                {" "}
+                {title} <BiUpArrow /> <BiDownArrow />{" "}
+              </th>
             ))}
           </tr>
         </thead>
