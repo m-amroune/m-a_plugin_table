@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import Table from "./Table";
 import style from "./style.module.css";
+import { employeesList } from "../example/data";
 
 const EmployeesTable = ({ headColumns, rows }) => {
-  const [searchValue, setSearchValue] = useState("");
+  const [searchValue, setSearchValue] = useState([""]);
   const [rowsPerPage, setRowsPerPage] = useState(10);
 
   const search = () => {
@@ -20,7 +21,6 @@ const EmployeesTable = ({ headColumns, rows }) => {
         employee.zipCode.includes(searchValue)
     );
   };
-
   return (
     <div>
       <div className={style["entries-searchBar"]}>
@@ -43,17 +43,13 @@ const EmployeesTable = ({ headColumns, rows }) => {
           />
         </div>
       </div>
-      <Table
-        rowsPerPage={rowsPerPage}
-        headColumns={headColumns}
-        rows={search(rows)}
-      />
-
       <div>
-        <p>
-          Showing {} to {} entries of {rows.length}
-          entries
-        </p>
+        <Table
+          rowsPerPage={rowsPerPage}
+          headColumns={headColumns}
+          rows={search(rows)}
+          employeesList={employeesList}
+        />
       </div>
     </div>
   );

@@ -1,39 +1,70 @@
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
 import style from "./style.module.css";
 import { BiUpArrow, BiDownArrow } from "react-icons/bi";
+import Pagination from "./Pagination";
 
-const Table = ({ headColumns, rows, rowsPerPage }) => {
-  const [currentListEmployees, setCurrentListEmployees] = useState([...rows]);
-  const [page, setPage] = useState(0);
+const Table = ({ headColumns, employeesList, rows, rowsPerPage }) => {
+  const [currentRows, setCurrentRows] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [sortColumn, setSortColumn] = useState();
+  const [sortAscending, setSortAscending] = useState(true);
 
   useEffect(() => {
-    setCurrentListEmployees(rows);
+    setCurrentRows([...rows]);
   }, [rows]);
 
-  const onPrevious = () => {
-    setPage(page - 1 > -1 ? page - 1 : page);
+  const lastRow = currentPage * rowsPerPage;
+  const firstRow = lastRow - rowsPerPage;
+  const totalEmployees = currentRows.slice(firstRow, lastRow);
+
+  const sortByColumn = (headColumn) => {
+    let tempSortedEmployeesList = [...rows];
+    let newSortDirection = !sortAscending;
+
+    if (headColumn !== sortColumn) {
+      newSortDirection = true;
+      setSortColumn(headColumn);
+    }
+
+    if (newSortDirection) {
+      // ascending order
+      tempSortedEmployeesList.sort((a, b) => {
+        const x = a[headColumn];
+        const y = b[headColumn];
+        if (x < y) {
+          return -1;
+        }
+        if (x > y) {
+          return 1;
+        }
+        return 0;
+      });
+    }
+    setSortAscending(newSortDirection);
+    setCurrentRows(tempSortedEmployeesList);
   };
 
-  const onNext = () => {
-    setPage(page + 1 < rows.length / rowsPerPage ? page + 1 : page);
-  };
   return (
     <div>
-      <table className={style.table}>
-        <thead className={style.headColumns}>
-          <tr>
-            {headColumns.map(({ title }, index) => (
-              <th key={`${index}-${title}`}>
-                {" "}
-                {title} <BiUpArrow /> <BiDownArrow />{" "}
-              </th>
-            ))}
-          </tr>
-        </thead>
-        <tbody>
-          {rows
-            .slice(rowsPerPage * page, rowsPerPage * page + rowsPerPage)
-            .map((row, index) => {
+      {employeesList.length >= 0 && (
+        <table className={style.table}>
+          <thead className={style.headColumns}>
+            <tr>
+              {headColumns.map(({ title, value }, index) => (
+                <th
+                  onClick={() => sortByColumn(value)}
+                  key={`${index}-${title}`}
+                >
+                  {title}
+                  <div className={style["headColumns-cell"]}>
+                    <BiUpArrow /> <BiDownArrow />
+                  </div>
+                </th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {totalEmployees.slice(0, rowsPerPage).map((row, index) => {
               return (
                 <tr className={style.columns} key={index}>
                   <td> {row.firstName} </td>
@@ -48,17 +79,20 @@ const Table = ({ headColumns, rows, rowsPerPage }) => {
                 </tr>
               );
             })}
-        </tbody>
-      </table>
-      <div>
-        <button className={style.button} onClick={onPrevious}>
-          Previous
-        </button>
-        <label className={style["page-number"]}>{page + 1}</label>
-        <button className={style.button} onClick={onNext}>
-          Next
-        </button>
+          </tbody>
+        </table>
+      )}
+      <div className={style["pagination-entries"]}>
+        <p>
+          Showing {firstRow + 1} to {lastRow} entries of {rows.length} entries
+        </p>
       </div>
+      <Pagination
+        rows={rows.length}
+        rowsPerPage={rowsPerPage}
+        currentPage={currentPage}
+        setCurrentPage={setCurrentPage}
+      />
     </div>
   );
 };
