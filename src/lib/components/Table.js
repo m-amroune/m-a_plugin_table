@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import style from "./style.module.css";
 import { BiUpArrow, BiDownArrow } from "react-icons/bi";
 import Pagination from "./Pagination";
@@ -46,21 +46,23 @@ const Table = ({ headColumns, employeesList, rows, rowsPerPage }) => {
 
   return (
     <div>
-      {employeesList.length >= 0 && (
+      {
         <table className={style.table}>
           <thead className={style.headColumns}>
             <tr>
-              {headColumns.map(({ title, value }, index) => (
-                <th
-                  onClick={() => sortByColumn(value)}
-                  key={`${index}-${title}`}
-                >
-                  {title}
-                  <div className={style["headColumns-cell"]}>
-                    <BiUpArrow /> <BiDownArrow />
-                  </div>
-                </th>
-              ))}
+              {headColumns
+                ? headColumns.map(({ title, value }, index) => (
+                    <th
+                      onClick={() => sortByColumn(value)}
+                      key={`${index}-${title}`}
+                    >
+                      {title}
+                      <div className={style["headColumns-cell"]}>
+                        <BiUpArrow /> <BiDownArrow />
+                      </div>
+                    </th>
+                  ))
+                : []}
             </tr>
           </thead>
           <tbody>
@@ -81,7 +83,7 @@ const Table = ({ headColumns, employeesList, rows, rowsPerPage }) => {
             })}
           </tbody>
         </table>
-      )}
+      }
       <div className={style["pagination-entries"]}>
         <p>
           Showing {firstRow + 1} to {lastRow} entries of {rows.length} entries

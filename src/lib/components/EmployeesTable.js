@@ -4,22 +4,24 @@ import style from "./style.module.css";
 import { employeesList } from "../example/data";
 
 const EmployeesTable = ({ headColumns, rows }) => {
-  const [searchValue, setSearchValue] = useState([""]);
+  const [searchValue, setSearchValue] = useState("");
   const [rowsPerPage, setRowsPerPage] = useState(10);
 
   const search = () => {
-    return rows.filter(
-      (employee) =>
-        employee.firstName.toLowerCase().includes(searchValue) ||
-        employee.lastName.toLowerCase().includes(searchValue) ||
-        employee.startDate.includes(searchValue) ||
-        employee.department.toLowerCase().includes(searchValue) ||
-        employee.dateOFBirth.includes(searchValue) ||
-        employee.street.toLowerCase().includes(searchValue) ||
-        employee.city.toLowerCase().includes(searchValue) ||
-        employee.state.toLowerCase().includes(searchValue) ||
-        employee.zipCode.includes(searchValue)
-    );
+    return rows
+      ? rows.filter(
+          (employee) =>
+            employee.firstName.toLowerCase().includes(searchValue) ||
+            employee.lastName.toLowerCase().includes(searchValue) ||
+            employee.startDate.includes(searchValue) ||
+            employee.department.toLowerCase().includes(searchValue) ||
+            employee.dateOFBirth.includes(searchValue) ||
+            employee.street.toLowerCase().includes(searchValue) ||
+            employee.city.toLowerCase().includes(searchValue) ||
+            employee.state.toLowerCase().includes(searchValue) ||
+            employee.zipCode.includes(searchValue)
+        )
+      : [];
   };
   return (
     <div>

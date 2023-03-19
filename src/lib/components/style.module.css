@@ -37,6 +37,10 @@ td {
   padding: 5px;
 }
 
+th {
+  cursor: pointer;
+}
+
 tbody tr:nth-child(even) {
   background-color: #f3f3f3;
 }

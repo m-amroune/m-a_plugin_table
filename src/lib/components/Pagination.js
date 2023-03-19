@@ -1,7 +1,6 @@
 import React from "react";
 import style from "./style.module.css";
 
-
 const Pagination = ({ rows, rowsPerPage, currentPage, setCurrentPage }) => {
   let pages = [];
   for (let i = 1; i <= Math.ceil(rows / rowsPerPage); i++) {
