@@ -3,7 +3,7 @@ import style from "./style.module.css";
 import { BiUpArrow, BiDownArrow } from "react-icons/bi";
 import Pagination from "./Pagination";
 
-const Table = ({ headColumns, employeesList, rows, rowsPerPage }) => {
+const Table = ({ headColumns, rows, rowsPerPage }) => {
   const [currentRows, setCurrentRows] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [sortColumn, setSortColumn] = useState();
@@ -88,13 +88,13 @@ const Table = ({ headColumns, employeesList, rows, rowsPerPage }) => {
         <p>
           Showing {firstRow + 1} to {lastRow} entries of {rows.length} entries
         </p>
+        <Pagination
+          rows={rows.length}
+          rowsPerPage={rowsPerPage}
+          currentPage={currentPage}
+          setCurrentPage={setCurrentPage}
+        />
       </div>
-      <Pagination
-        rows={rows.length}
-        rowsPerPage={rowsPerPage}
-        currentPage={currentPage}
-        setCurrentPage={setCurrentPage}
-      />
     </div>
   );
 };

@@ -3,6 +3,23 @@
 .entries-searchBar {
   display: flex;
   margin: 20px 0;
+  align-items: center;
+  justify-content: space-around;
+}
+
+input::placeholder {
+  visibility: hidden;
+}
+
+.select-entries {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  max-width: 66%;
+}
+
+.select-entries label {
+  padding-right: 2px;
 }
 
 select option:nth-child(even) {
@@ -15,6 +32,14 @@ select option:nth-child(even) {
   margin-right: 1000px;
 }
 
+@media screen and (max-width: 680px) {
+  .search-label label {
+    display: none;
+  }
+  input::placeholder {
+    visibility: visible;
+  }
+}
 /* Table */
 
 .table {
@@ -22,7 +47,8 @@ select option:nth-child(even) {
   border-collapse: collapse;
   border: 1px solid #93ad18;
   margin-bottom: 20px;
-  width: 1440px;
+  max-width: 1440px;
+  width: 100%;
 }
 
 .headColumns {
@@ -47,6 +73,13 @@ tbody tr:nth-child(even) {
 
 /* PAGINATION*/
 
+.pagination-entries {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
 .button {
   border: none;
   background-color: white;
@@ -55,9 +88,7 @@ tbody tr:nth-child(even) {
 }
 
 .pagination {
-  display: flex;
-  flex-direction: row;
-  margin-left: 1200px;
+  /* margin-left: 1200px; */
 }
 
 .pagination button.active {

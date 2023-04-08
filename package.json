@@ -1,6 +1,6 @@
 {
   "name": "m-a_plugin_table",
-  "version": "0.3.5",
+  "version": "0.3.6",
   "main": "dist/index.js",
   "module": "dist/index.js",
   "files": [

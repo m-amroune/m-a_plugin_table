@@ -26,7 +26,7 @@ const EmployeesTable = ({ headColumns, rows }) => {
   return (
     <div>
       <div className={style["entries-searchBar"]}>
-        <div>
+        <div className={style["select-entries"]}>
           <label>Show </label>
           <select onChange={(e) => setRowsPerPage(e.target.value)}>
             <option>10</option>
@@ -36,9 +36,10 @@ const EmployeesTable = ({ headColumns, rows }) => {
           </select>
           <p className={style.paragraphEntries}>entries</p>
         </div>
-        <div>
+        <div className={style["search-label"]}>
           <label>Search : </label>
           <input
+            placeholder="Search"
             type="text"
             value={searchValue}
             onChange={(e) => setSearchValue(e.target.value)}
