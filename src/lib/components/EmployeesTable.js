@@ -1,11 +1,12 @@
-import React, { useState } from "react";
+import React, { useContext } from "react";
 import Table from "./Table";
 import style from "./style.module.css";
-import { employeesList } from "../example/data";
+import { searchContext } from "../utils/context/searchContext";
+import { rowsPerPageContext } from "../utils/context/rowsPerPageContext";
 
 const EmployeesTable = ({ headColumns, rows }) => {
-  const [searchValue, setSearchValue] = useState("");
-  const [rowsPerPage, setRowsPerPage] = useState(10);
+  const { searchValue, setSearchValue } = useContext(searchContext);
+  const { rowsPerPage, setRowsPerPage } = useContext(rowsPerPageContext);
 
   const search = () => {
     return rows
@@ -41,7 +42,6 @@ const EmployeesTable = ({ headColumns, rows }) => {
           <input
             placeholder="Search"
             type="text"
-            value={searchValue}
             onChange={(e) => setSearchValue(e.target.value)}
           />
         </div>
@@ -51,7 +51,6 @@ const EmployeesTable = ({ headColumns, rows }) => {
           rowsPerPage={rowsPerPage}
           headColumns={headColumns}
           rows={search(rows)}
-          employeesList={employeesList}
         />
       </div>
     </div>

@@ -13,11 +13,16 @@ const EmployeesTable = ({
   };
   return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
     className: style["entries-searchBar"]
-  }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("label", null, "Show "), /*#__PURE__*/React.createElement("select", {
+  }, /*#__PURE__*/React.createElement("div", {
+    className: style["select-entries"]
+  }, /*#__PURE__*/React.createElement("label", null, "Show "), /*#__PURE__*/React.createElement("select", {
     onChange: e => setRowsPerPage(e.target.value)
   }, /*#__PURE__*/React.createElement("option", null, "10"), /*#__PURE__*/React.createElement("option", null, "25"), /*#__PURE__*/React.createElement("option", null, "50"), /*#__PURE__*/React.createElement("option", null, "100")), /*#__PURE__*/React.createElement("p", {
     className: style.paragraphEntries
-  }, "entries")), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("label", null, "Search : "), /*#__PURE__*/React.createElement("input", {
+  }, "entries")), /*#__PURE__*/React.createElement("div", {
+    className: style["search-label"]
+  }, /*#__PURE__*/React.createElement("label", null, "Search : "), /*#__PURE__*/React.createElement("input", {
+    placeholder: "Search",
     type: "text",
     value: searchValue,
     onChange: e => setSearchValue(e.target.value)

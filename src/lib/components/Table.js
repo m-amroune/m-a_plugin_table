@@ -1,21 +1,30 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import style from "./style.module.css";
 import { BiUpArrow, BiDownArrow } from "react-icons/bi";
 import Pagination from "./Pagination";
+import { currentPageContext } from "../utils/context/currentPageContext";
 
 const Table = ({ headColumns, rows, rowsPerPage }) => {
-  const [currentRows, setCurrentRows] = useState([]);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [sortColumn, setSortColumn] = useState();
+  const { currentPage, setCurrentPage } = useContext(currentPageContext);
+  const [currentRows, setCurrentRows] = useState(rows);
+  const [sortColumn, setSortColumn] = useState(rows);
   const [sortAscending, setSortAscending] = useState(true);
+  const [lastRow, setLastRow] = useState("");
+  const [firstRow, setFirstRow] = useState("");
+  const [totalRows, setTotalRows] = useState(rows);
 
   useEffect(() => {
-    setCurrentRows([...rows]);
-  }, [rows]);
+    setCurrentRows(currentRows);
+    setLastRow(currentPage * rowsPerPage);
+    setFirstRow(lastRow - rowsPerPage);
+    setTotalRows(currentRows.slice(firstRow, lastRow));
 
-  const lastRow = currentPage * rowsPerPage;
-  const firstRow = lastRow - rowsPerPage;
-  const totalEmployees = currentRows.slice(firstRow, lastRow);
+    console.log(rows);
+  }, [currentRows, currentPage, firstRow, lastRow, rowsPerPage, rows]);
+
+  //  let lastRow = currentPage * rowsPerPage;
+  // let firstRow = lastRow - rowsPerPage;
+  // let totalRows = currentRows.slice(firstRow, lastRow);
 
   const sortByColumn = (headColumn) => {
     let tempSortedEmployeesList = [...rows];
@@ -66,7 +75,7 @@ const Table = ({ headColumns, rows, rowsPerPage }) => {
             </tr>
           </thead>
           <tbody>
-            {totalEmployees.slice(0, rowsPerPage).map((row, index) => {
+            {totalRows.map((row, index) => {
               return (
                 <tr className={style.columns} key={index}>
                   <td> {row.firstName} </td>

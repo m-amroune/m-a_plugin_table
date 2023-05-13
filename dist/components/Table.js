@@ -4,7 +4,6 @@ import { BiUpArrow, BiDownArrow } from "react-icons/bi";
 import Pagination from "./Pagination";
 const Table = ({
   headColumns,
-  employeesList,
   rows,
   rowsPerPage
 }) => {
@@ -61,11 +60,11 @@ const Table = ({
     }, /*#__PURE__*/React.createElement("td", null, " ", row.firstName, " "), /*#__PURE__*/React.createElement("td", null, " ", row.lastName, " "), /*#__PURE__*/React.createElement("td", null, " ", row.startDate, " "), /*#__PURE__*/React.createElement("td", null, " ", row.department, " "), /*#__PURE__*/React.createElement("td", null, " ", row.dateOFBirth, " "), /*#__PURE__*/React.createElement("td", null, " ", row.street, " "), /*#__PURE__*/React.createElement("td", null, " ", row.city, " "), /*#__PURE__*/React.createElement("td", null, " ", row.state, " "), /*#__PURE__*/React.createElement("td", null, " ", row.zipCode, " "));
   }))), /*#__PURE__*/React.createElement("div", {
     className: style["pagination-entries"]
-  }, /*#__PURE__*/React.createElement("p", null, "Showing ", firstRow + 1, " to ", lastRow, " entries of ", rows.length, " entries")), /*#__PURE__*/React.createElement(Pagination, {
+  }, /*#__PURE__*/React.createElement("p", null, "Showing ", firstRow + 1, " to ", lastRow, " entries of ", rows.length, " entries"), /*#__PURE__*/React.createElement(Pagination, {
     rows: rows.length,
     rowsPerPage: rowsPerPage,
     currentPage: currentPage,
     setCurrentPage: setCurrentPage
-  }));
+  })));
 };
 export default Table;

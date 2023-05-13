@@ -1,12 +1,23 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
-import { employeesList, headColumns } from "./lib/example/data";
-import { EmployeesTable } from "./lib";
+import { rows, headColumns } from "./lib/example/data";
+import {
+  EmployeesTable,
+  ContextSearchContextProvider,
+  ContextRowsPerPageContextProvider,
+  ContextCurrentPageContextProvider,
+} from "./lib";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <EmployeesTable rows={employeesList} headColumns={headColumns} />
+    <ContextRowsPerPageContextProvider>
+      <ContextSearchContextProvider>
+        <ContextCurrentPageContextProvider>
+          <EmployeesTable rows={rows} headColumns={headColumns} />
+        </ContextCurrentPageContextProvider>
+      </ContextSearchContextProvider>
+    </ContextRowsPerPageContextProvider>
   </React.StrictMode>
 );
