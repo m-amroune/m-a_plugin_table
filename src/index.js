@@ -7,6 +7,7 @@ import {
   ContextSearchContextProvider,
   ContextRowsPerPageContextProvider,
   ContextCurrentPageContextProvider,
+  ContextTotalRowsContextProvider,
 } from "./lib";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
@@ -15,7 +16,9 @@ root.render(
     <ContextRowsPerPageContextProvider>
       <ContextSearchContextProvider>
         <ContextCurrentPageContextProvider>
-          <EmployeesTable rows={rows} headColumns={headColumns} />
+          <ContextTotalRowsContextProvider>
+            <EmployeesTable rows={rows} headColumns={headColumns} />
+          </ContextTotalRowsContextProvider>
         </ContextCurrentPageContextProvider>
       </ContextSearchContextProvider>
     </ContextRowsPerPageContextProvider>

@@ -17,8 +17,7 @@ const Table = ({ headColumns, rows, rowsPerPage }) => {
     setCurrentRows(currentRows);
     setLastRow(currentPage * rowsPerPage);
     setFirstRow(lastRow - rowsPerPage);
-    setTotalRows(currentRows.slice(firstRow, lastRow));
-
+    setTotalRows(rows.slice(firstRow, lastRow));
     console.log(rows);
   }, [currentRows, currentPage, firstRow, lastRow, rowsPerPage, rows]);
 
@@ -50,7 +49,7 @@ const Table = ({ headColumns, rows, rowsPerPage }) => {
       });
     }
     setSortAscending(newSortDirection);
-    setCurrentRows(tempSortedEmployeesList);
+    setTotalRows(tempSortedEmployeesList);
   };
 
   return (

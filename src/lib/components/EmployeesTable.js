@@ -4,12 +4,13 @@ import style from "./style.module.css";
 import { searchContext } from "../utils/context/searchContext";
 import { rowsPerPageContext } from "../utils/context/rowsPerPageContext";
 
-const EmployeesTable = ({ headColumns, rows }) => {
+const EmployeesTable = ({ headColumns, rows, totalRows, setTotalRows }) => {
   const { searchValue, setSearchValue } = useContext(searchContext);
   const { rowsPerPage, setRowsPerPage } = useContext(rowsPerPageContext);
 
   const search = () => {
-    return rows
+    console.log("search");
+    return searchValue.length > 0
       ? rows.filter(
           (employee) =>
             employee.firstName.toLowerCase().includes(searchValue) ||
@@ -22,7 +23,7 @@ const EmployeesTable = ({ headColumns, rows }) => {
             employee.state.toLowerCase().includes(searchValue) ||
             employee.zipCode.includes(searchValue)
         )
-      : [];
+      : rows;
   };
   return (
     <div>

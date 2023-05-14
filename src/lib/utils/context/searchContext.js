@@ -4,6 +4,7 @@ export const searchContext = React.createContext();
 
 export const ContextSearchContextProvider = ({ children }) => {
   const [searchValue, setSearchValue] = useState("");
+
   return (
     <searchContext.Provider
       value={{
