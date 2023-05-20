@@ -1,5 +1,6 @@
 import React from "react";
 import style from "./style.module.css";
+import PropTypes from "prop-types";
 
 const Pagination = ({ rows, rowsPerPage, currentPage, setCurrentPage }) => {
   let pages = [];
@@ -22,6 +23,13 @@ const Pagination = ({ rows, rowsPerPage, currentPage, setCurrentPage }) => {
       })}
     </div>
   );
+};
+
+Pagination.propTypes = {
+  rows: PropTypes.number.isRequired,
+  rowsPerPage: PropTypes.number.isRequired,
+  currentPage: PropTypes.number.isRequired,
+  setCurrentPage: PropTypes.func.isRequired,
 };
 
 export default Pagination;

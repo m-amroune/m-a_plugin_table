@@ -26,7 +26,7 @@ export const headColumns = [{
   title: "Zip Code",
   value: "zipCode"
 }];
-export const employeesList = [{
+export const rows = [{
   firstName: "(1)Vivie",
   lastName: "Keyzor",
   startDate: "11/1/2022",

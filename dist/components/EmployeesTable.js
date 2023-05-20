@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import Table from "./Table";
 import style from "./style.module.css";
-import { employeesList } from "../example/data";
 const EmployeesTable = ({
   headColumns,
   rows
@@ -9,7 +8,8 @@ const EmployeesTable = ({
   const [searchValue, setSearchValue] = useState("");
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const search = () => {
-    return rows ? rows.filter(employee => employee.firstName.toLowerCase().includes(searchValue) || employee.lastName.toLowerCase().includes(searchValue) || employee.startDate.includes(searchValue) || employee.department.toLowerCase().includes(searchValue) || employee.dateOFBirth.includes(searchValue) || employee.street.toLowerCase().includes(searchValue) || employee.city.toLowerCase().includes(searchValue) || employee.state.toLowerCase().includes(searchValue) || employee.zipCode.includes(searchValue)) : [];
+    console.log("search");
+    return searchValue.length > 0 ? rows.filter(employee => employee.firstName.toLowerCase().includes(searchValue) || employee.lastName.toLowerCase().includes(searchValue) || employee.startDate.includes(searchValue) || employee.department.toLowerCase().includes(searchValue) || employee.dateOFBirth.includes(searchValue) || employee.street.toLowerCase().includes(searchValue) || employee.city.toLowerCase().includes(searchValue) || employee.state.toLowerCase().includes(searchValue) || employee.zipCode.includes(searchValue)) : rows || [];
   };
   return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
     className: style["entries-searchBar"]
@@ -24,13 +24,11 @@ const EmployeesTable = ({
   }, /*#__PURE__*/React.createElement("label", null, "Search : "), /*#__PURE__*/React.createElement("input", {
     placeholder: "Search",
     type: "text",
-    value: searchValue,
     onChange: e => setSearchValue(e.target.value)
   }))), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement(Table, {
     rowsPerPage: rowsPerPage,
     headColumns: headColumns,
-    rows: search(rows),
-    employeesList: employeesList
+    rows: search(rows)
   })));
 };
 export default EmployeesTable;

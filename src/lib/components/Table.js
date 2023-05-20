@@ -1,11 +1,11 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import style from "./style.module.css";
 import { BiUpArrow, BiDownArrow } from "react-icons/bi";
 import Pagination from "./Pagination";
-import { currentPageContext } from "../utils/context/currentPageContext";
+import PropTypes from "prop-types";
 
 const Table = ({ headColumns, rows, rowsPerPage }) => {
-  const { currentPage, setCurrentPage } = useContext(currentPageContext);
+  const [currentPage, setCurrentPage] = useState(1);
   const [currentRows, setCurrentRows] = useState(rows);
   const [sortColumn, setSortColumn] = useState(rows);
   const [sortAscending, setSortAscending] = useState(true);
@@ -18,12 +18,7 @@ const Table = ({ headColumns, rows, rowsPerPage }) => {
     setLastRow(currentPage * rowsPerPage);
     setFirstRow(lastRow - rowsPerPage);
     setTotalRows(rows.slice(firstRow, lastRow));
-    console.log(rows);
   }, [currentRows, currentPage, firstRow, lastRow, rowsPerPage, rows]);
-
-  //  let lastRow = currentPage * rowsPerPage;
-  // let firstRow = lastRow - rowsPerPage;
-  // let totalRows = currentRows.slice(firstRow, lastRow);
 
   const sortByColumn = (headColumn) => {
     let tempSortedEmployeesList = [...rows];
@@ -105,6 +100,12 @@ const Table = ({ headColumns, rows, rowsPerPage }) => {
       </div>
     </div>
   );
+};
+
+Table.propTypes = {
+  headColumns: PropTypes.array.isRequired,
+  rows: PropTypes.array.isRequired,
+  rowsPerPage: PropTypes.number.isRequired,
 };
 
 export default Table;

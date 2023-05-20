@@ -1,15 +1,13 @@
-import React, { useContext } from "react";
+import React, { useState } from "react";
 import Table from "./Table";
 import style from "./style.module.css";
-import { searchContext } from "../utils/context/searchContext";
-import { rowsPerPageContext } from "../utils/context/rowsPerPageContext";
+import PropTypes from "prop-types";
 
-const EmployeesTable = ({ headColumns, rows, totalRows, setTotalRows }) => {
-  const { searchValue, setSearchValue } = useContext(searchContext);
-  const { rowsPerPage, setRowsPerPage } = useContext(rowsPerPageContext);
+const EmployeesTable = ({ headColumns, rows }) => {
+  const [searchValue, setSearchValue] = useState("");
+  const [rowsPerPage, setRowsPerPage] = useState(10);
 
   const search = () => {
-    console.log("search");
     return searchValue.length > 0
       ? rows.filter(
           (employee) =>
@@ -23,7 +21,7 @@ const EmployeesTable = ({ headColumns, rows, totalRows, setTotalRows }) => {
             employee.state.toLowerCase().includes(searchValue) ||
             employee.zipCode.includes(searchValue)
         )
-      : rows;
+      : rows || [];
   };
   return (
     <div>
@@ -56,6 +54,11 @@ const EmployeesTable = ({ headColumns, rows, totalRows, setTotalRows }) => {
       </div>
     </div>
   );
+};
+
+EmployeesTable.propTypes = {
+  headColumns: PropTypes.array.isRequired,
+  rows: PropTypes.array.isRequired,
 };
 
 export default EmployeesTable;

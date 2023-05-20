@@ -7,16 +7,25 @@ const Table = ({
   rows,
   rowsPerPage
 }) => {
-  const [currentRows, setCurrentRows] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [sortColumn, setSortColumn] = useState();
+  const [currentRows, setCurrentRows] = useState(rows);
+  const [sortColumn, setSortColumn] = useState(rows);
   const [sortAscending, setSortAscending] = useState(true);
+  const [lastRow, setLastRow] = useState("");
+  const [firstRow, setFirstRow] = useState("");
+  const [totalRows, setTotalRows] = useState(rows);
   useEffect(() => {
-    setCurrentRows([...rows]);
-  }, [rows]);
-  const lastRow = currentPage * rowsPerPage;
-  const firstRow = lastRow - rowsPerPage;
-  const totalEmployees = currentRows.slice(firstRow, lastRow);
+    setCurrentRows(currentRows);
+    setLastRow(currentPage * rowsPerPage);
+    setFirstRow(lastRow - rowsPerPage);
+    setTotalRows(rows.slice(firstRow, lastRow));
+    console.log(rows);
+  }, [currentRows, currentPage, firstRow, lastRow, rowsPerPage, rows]);
+
+  //  let lastRow = currentPage * rowsPerPage;
+  // let firstRow = lastRow - rowsPerPage;
+  // let totalRows = currentRows.slice(firstRow, lastRow);
+
   const sortByColumn = headColumn => {
     let tempSortedEmployeesList = [...rows];
     let newSortDirection = !sortAscending;
@@ -39,7 +48,7 @@ const Table = ({
       });
     }
     setSortAscending(newSortDirection);
-    setCurrentRows(tempSortedEmployeesList);
+    setTotalRows(tempSortedEmployeesList);
   };
   return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("table", {
     className: style.table
@@ -53,7 +62,7 @@ const Table = ({
     key: `${index}-${title}`
   }, title, /*#__PURE__*/React.createElement("div", {
     className: style["headColumns-cell"]
-  }, /*#__PURE__*/React.createElement(BiUpArrow, null), " ", /*#__PURE__*/React.createElement(BiDownArrow, null)))) : [])), /*#__PURE__*/React.createElement("tbody", null, totalEmployees.slice(0, rowsPerPage).map((row, index) => {
+  }, /*#__PURE__*/React.createElement(BiUpArrow, null), " ", /*#__PURE__*/React.createElement(BiDownArrow, null)))) : [])), /*#__PURE__*/React.createElement("tbody", null, totalRows.map((row, index) => {
     return /*#__PURE__*/React.createElement("tr", {
       className: style.columns,
       key: index
