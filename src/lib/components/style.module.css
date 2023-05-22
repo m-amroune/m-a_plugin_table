@@ -91,11 +91,11 @@ tbody tr:nth-child(even) {
   font-weight: 900;
   border-color: #101010;
   background: #93ad18;
-  color: #101010;
+  color: #ccc;
+  font-size: 12px;
+  cursor: pointer;
 }
 
-.page-number {
-  background-color: #93ad18;
-  padding: 5px 10px;
-  font-weight: bold;
+.pagination button {
+  margin: 1px;
 }

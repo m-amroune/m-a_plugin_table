@@ -15,7 +15,7 @@ const Pagination = ({ rows, rowsPerPage, currentPage, setCurrentPage }) => {
           <button
             key={index}
             onClick={() => setCurrentPage(page)}
-            className={page === currentPage ? "active" : ""}
+            className={page === currentPage ? style["active"] : ""}
           >
             {page}
           </button>
@@ -27,7 +27,10 @@ const Pagination = ({ rows, rowsPerPage, currentPage, setCurrentPage }) => {
 
 Pagination.propTypes = {
   rows: PropTypes.number.isRequired,
-  rowsPerPage: PropTypes.number.isRequired,
+  rowsPerPage: PropTypes.oneOfType([
+    PropTypes.string.isRequired,
+    PropTypes.number.isRequired,
+  ]),
   currentPage: PropTypes.number.isRequired,
   setCurrentPage: PropTypes.func.isRequired,
 };

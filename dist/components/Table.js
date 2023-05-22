@@ -2,10 +2,12 @@ import React, { useState, useEffect } from "react";
 import style from "./style.module.css";
 import { BiUpArrow, BiDownArrow } from "react-icons/bi";
 import Pagination from "./Pagination";
+import PropTypes from "prop-types";
 const Table = ({
   headColumns,
   rows,
-  rowsPerPage
+  rowsPerPage,
+  setRowsPerPage
 }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [currentRows, setCurrentRows] = useState(rows);
@@ -21,11 +23,6 @@ const Table = ({
     setTotalRows(rows.slice(firstRow, lastRow));
     console.log(rows);
   }, [currentRows, currentPage, firstRow, lastRow, rowsPerPage, rows]);
-
-  //  let lastRow = currentPage * rowsPerPage;
-  // let firstRow = lastRow - rowsPerPage;
-  // let totalRows = currentRows.slice(firstRow, lastRow);
-
   const sortByColumn = headColumn => {
     let tempSortedEmployeesList = [...rows];
     let newSortDirection = !sortAscending;
@@ -75,5 +72,10 @@ const Table = ({
     currentPage: currentPage,
     setCurrentPage: setCurrentPage
   })));
+};
+Table.propTypes = {
+  headColumns: PropTypes.array.isRequired,
+  rows: PropTypes.array.isRequired,
+  rowsPerPage: PropTypes.oneOfType([PropTypes.string.isRequired, PropTypes.number.isRequired])
 };
 export default Table;

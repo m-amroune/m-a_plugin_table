@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Table from "./Table";
 import style from "./style.module.css";
+import PropTypes from "prop-types";
 const EmployeesTable = ({
   headColumns,
   rows
@@ -8,8 +9,7 @@ const EmployeesTable = ({
   const [searchValue, setSearchValue] = useState("");
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const search = () => {
-    console.log("search");
-    return searchValue.length > 0 ? rows.filter(employee => employee.firstName.toLowerCase().includes(searchValue) || employee.lastName.toLowerCase().includes(searchValue) || employee.startDate.includes(searchValue) || employee.department.toLowerCase().includes(searchValue) || employee.dateOFBirth.includes(searchValue) || employee.street.toLowerCase().includes(searchValue) || employee.city.toLowerCase().includes(searchValue) || employee.state.toLowerCase().includes(searchValue) || employee.zipCode.includes(searchValue)) : rows || [];
+    return rows ? rows.filter(employee => employee.firstName.toLowerCase().includes(searchValue) || employee.lastName.toLowerCase().includes(searchValue) || employee.startDate.includes(searchValue) || employee.department.toLowerCase().includes(searchValue) || employee.dateOFBirth.includes(searchValue) || employee.street.toLowerCase().includes(searchValue) || employee.city.toLowerCase().includes(searchValue) || employee.state.toLowerCase().includes(searchValue) || employee.zipCode.includes(searchValue)) : [];
   };
   return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
     className: style["entries-searchBar"]
@@ -30,5 +30,9 @@ const EmployeesTable = ({
     headColumns: headColumns,
     rows: search(rows)
   })));
+};
+EmployeesTable.propTypes = {
+  headColumns: PropTypes.array.isRequired,
+  rows: PropTypes.array.isRequired
 };
 export default EmployeesTable;

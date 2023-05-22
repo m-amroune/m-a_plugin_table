@@ -4,9 +4,8 @@ import { BiUpArrow, BiDownArrow } from "react-icons/bi";
 import Pagination from "./Pagination";
 import PropTypes from "prop-types";
 
-const Table = ({ headColumns, rows, rowsPerPage }) => {
+const Table = ({ headColumns, rows, rowsPerPage, setRowsPerPage }) => {
   const [currentPage, setCurrentPage] = useState(1);
-  const [currentRows, setCurrentRows] = useState(rows);
   const [sortColumn, setSortColumn] = useState(rows);
   const [sortAscending, setSortAscending] = useState(true);
   const [lastRow, setLastRow] = useState("");
@@ -14,11 +13,10 @@ const Table = ({ headColumns, rows, rowsPerPage }) => {
   const [totalRows, setTotalRows] = useState(rows);
 
   useEffect(() => {
-    setCurrentRows(currentRows);
     setLastRow(currentPage * rowsPerPage);
     setFirstRow(lastRow - rowsPerPage);
     setTotalRows(rows.slice(firstRow, lastRow));
-  }, [currentRows, currentPage, firstRow, lastRow, rowsPerPage, rows]);
+  }, [currentPage, firstRow, lastRow, rowsPerPage, rows]);
 
   const sortByColumn = (headColumn) => {
     let tempSortedEmployeesList = [...rows];
@@ -53,37 +51,37 @@ const Table = ({ headColumns, rows, rowsPerPage }) => {
         <table className={style.table}>
           <thead className={style.headColumns}>
             <tr>
-              {headColumns
-                ? headColumns.map(({ title, value }, index) => (
-                    <th
-                      onClick={() => sortByColumn(value)}
-                      key={`${index}-${title}`}
-                    >
-                      {title}
-                      <div className={style["headColumns-cell"]}>
-                        <BiUpArrow /> <BiDownArrow />
-                      </div>
-                    </th>
-                  ))
-                : []}
+              {headColumns.map(({ title, value }, index) => (
+                <th
+                  onClick={() => sortByColumn(value)}
+                  key={`${index}-${title}`}
+                >
+                  {title}
+                  <div className={style["headColumns-cell"]}>
+                    <BiUpArrow /> <BiDownArrow />
+                  </div>
+                </th>
+              ))}
             </tr>
           </thead>
           <tbody>
-            {totalRows.map((row, index) => {
-              return (
-                <tr className={style.columns} key={index}>
-                  <td> {row.firstName} </td>
-                  <td> {row.lastName} </td>
-                  <td> {row.startDate} </td>
-                  <td> {row.department} </td>
-                  <td> {row.dateOFBirth} </td>
-                  <td> {row.street} </td>
-                  <td> {row.city} </td>
-                  <td> {row.state} </td>
-                  <td> {row.zipCode} </td>
-                </tr>
-              );
-            })}
+            {rows
+              ? totalRows.slice(0, rowsPerPage).map((row, index) => {
+                  return (
+                    <tr className={style.columns} key={index}>
+                      <td> {row.firstName} </td>
+                      <td> {row.lastName} </td>
+                      <td> {row.startDate} </td>
+                      <td> {row.department} </td>
+                      <td> {row.dateOFBirth} </td>
+                      <td> {row.street} </td>
+                      <td> {row.city} </td>
+                      <td> {row.state} </td>
+                      <td> {row.zipCode} </td>
+                    </tr>
+                  );
+                })
+              : []}
           </tbody>
         </table>
       }
@@ -105,7 +103,10 @@ const Table = ({ headColumns, rows, rowsPerPage }) => {
 Table.propTypes = {
   headColumns: PropTypes.array.isRequired,
   rows: PropTypes.array.isRequired,
-  rowsPerPage: PropTypes.number.isRequired,
+  rowsPerPage: PropTypes.oneOfType([
+    PropTypes.string.isRequired,
+    PropTypes.number.isRequired,
+  ]),
 };
 
 export default Table;

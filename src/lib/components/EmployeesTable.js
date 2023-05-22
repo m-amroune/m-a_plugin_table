@@ -8,7 +8,7 @@ const EmployeesTable = ({ headColumns, rows }) => {
   const [rowsPerPage, setRowsPerPage] = useState(10);
 
   const search = () => {
-    return searchValue.length > 0
+    return rows
       ? rows.filter(
           (employee) =>
             employee.firstName.toLowerCase().includes(searchValue) ||
@@ -21,7 +21,7 @@ const EmployeesTable = ({ headColumns, rows }) => {
             employee.state.toLowerCase().includes(searchValue) ||
             employee.zipCode.includes(searchValue)
         )
-      : rows || [];
+      : [];
   };
   return (
     <div>
@@ -50,6 +50,7 @@ const EmployeesTable = ({ headColumns, rows }) => {
           rowsPerPage={rowsPerPage}
           headColumns={headColumns}
           rows={search(rows)}
+          setRowsPerPage={setRowsPerPage}
         />
       </div>
     </div>
