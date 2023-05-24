@@ -17,7 +17,7 @@ const Pagination = ({
     return /*#__PURE__*/React.createElement("button", {
       key: index,
       onClick: () => setCurrentPage(page),
-      className: page === currentPage ? "active" : ""
+      className: page === currentPage ? style["active"] : ""
     }, page);
   }));
 };

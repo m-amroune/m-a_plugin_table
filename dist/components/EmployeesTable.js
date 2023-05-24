@@ -28,7 +28,8 @@ const EmployeesTable = ({
   }))), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement(Table, {
     rowsPerPage: rowsPerPage,
     headColumns: headColumns,
-    rows: search(rows)
+    rows: search(rows),
+    setRowsPerPage: setRowsPerPage
   })));
 };
 EmployeesTable.propTypes = {

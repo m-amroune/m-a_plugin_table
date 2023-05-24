@@ -4,7 +4,7 @@ import { BiUpArrow, BiDownArrow } from "react-icons/bi";
 import Pagination from "./Pagination";
 import PropTypes from "prop-types";
 
-const Table = ({ headColumns, rows, rowsPerPage, setRowsPerPage }) => {
+const Table = ({ headColumns, rows, rowsPerPage }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [sortColumn, setSortColumn] = useState(rows);
   const [sortAscending, setSortAscending] = useState(true);
